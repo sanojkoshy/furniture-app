@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const slides = [
   {
     img: "https://cdn.pixabay.com/photo/2016/08/26/15/06/home-1622401_1280.jpg",
@@ -23,7 +23,7 @@ const slides = [
 
 const categories = [
     { name: "Sofa", img: "https://i.pinimg.com/736x/88/a4/fd/88a4fde7ebe858d6a1d9852775ffb783.jpg" },
-    { name: "Bed", img: "https://i.pinimg.com/1200x/2e/0f/1a/2e0f1a4a44fd175436a216d5fddc30ba.jpg" },
+    { name: "Beds", img: "https://i.pinimg.com/1200x/2e/0f/1a/2e0f1a4a44fd175436a216d5fddc30ba.jpg" },
     { name: "Dining", img: "https://i.pinimg.com/736x/a3/10/9a/a3109ade9e40d1c39fa3712d2c658cc0.jpg" },
     { name: "Chair", img: "https://i.pinimg.com/736x/b7/27/4c/b7274c664460ac0284b791a3f93fc748.jpg" },
     { name: "Wardrobe", img: "https://i.pinimg.com/736x/db/3d/f9/db3df9badf44fae9ebde29113fc17030.jpg" },
@@ -94,32 +94,47 @@ useEffect(() => {
   <div className="container py-3">
 
   {/* Row 1 : Brand + Location */}
-  <div className="row align-items-center mb-3">
+ {/* Row 1 : Brand + Location */}
+<div className="d-flex justify-content-between align-items-center mb-3">
 
-    <div className="col-md-6">
-      <a
-        href="/"
-        className="text-decoration-none text-dark fw-bold d-flex align-items-center"
-      >
-        <span
-          className="d-inline-flex justify-content-center align-items-center rounded-circle bg-dark text-white me-2"
-          style={{ width: "36px", height: "36px" }}
-        >
-          m
-        </span>
-        maison
-      </a>
+  {/* Left Side - Brand */}
+  <div className="d-flex align-items-center gap-2">
+    {/* Circle Logo */}
+    <div
+      style={{
+        width: "45px",
+        height: "45px",
+        borderRadius: "50%",
+        backgroundColor: "#111",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        fontWeight: "bold",
+        fontSize: "20px",
+      }}
+    >
+      S
     </div>
 
-    <div className="col-md-6 text-end">
-      <span className="me-2">📍</span>
-      <span className="fw-semibold me-2">Location not set</span>
-      <a href="#" className="text-decoration-none">
-        Select delivery location
-      </a>
+    {/* Text */}
+    <div>
+      <h5 className="mb-0">SANKY</h5>
+      <small className="text-muted">FURNITURE</small>
     </div>
-
   </div>
+
+  {/* Right Side - Location */}
+  <div className="text-end">
+    <span className="me-2">📍</span>
+    <span className="fw-semibold me-2">Location not set</span>
+    <a href="#" className="text-decoration-none">
+      Select delivery location
+    </a>
+  </div>
+
+</div>
+       
 
   {/* Row 2 : Search + Buttons */}
   <div className="row align-items-center">
@@ -251,6 +266,7 @@ useEffect(() => {
 
   </div>
 </section>
+
    <section>
   <div className="container mt-5">
     <div className="row mb-3">
@@ -260,24 +276,37 @@ useEffect(() => {
     </div>
 
     <div className="row">
-      {categories.map((category) => (
-        <div
-          key={category.name}
-          className="col-6 col-md-4 col-lg-2 mb-4"
-        >
-          <div className="card h-100">
-            <img
-              src={category.img}
-              alt={category.name}
-              className="card-img-top"
-              style={{ height: "120px", objectFit: "cover" }}
-            />
-            <div className="card-body text-center">
-              <h6>{category.name}</h6>
-            </div>
-          </div>
-        </div>
-      ))}
+    {categories.map((category) => (
+  <div className="col-6 col-md-4 col-lg-2 mb-4">
+  <Link
+
+  to={
+    category.name === "Beds"
+      ? "/beds"
+      : category.name === "Sofa"
+      ? "/sofa"
+       : category.name === "dining"
+      ? "/dining" 
+      : category.name === "chair"
+      ? "/chair"
+      : "/wardrobe"
+
+  }
+  >
+    <div className="card h-100">
+      <img
+        src={category.img}
+        alt={category.name}
+        className="card-img-top"
+        style={{ height: "120px", objectFit: "cover" }}
+      />
+      <div className="card-body text-center">
+        <h6>{category.name}</h6>
+      </div>
+    </div>
+  </Link>
+</div>
+))}
     </div>
   </div>
 </section>
